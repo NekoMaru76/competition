@@ -11,7 +11,7 @@ Create a file with path `/vars/.env` with content
 ```
 TOKEN=
 MONGO_URI=
-```\
+```
 (`/` is your project directory)
 
 # Start
