@@ -3,7 +3,7 @@ import Bot from "../../Bot/Bot";
 import BaseRound from "./BaseRound";
 import Battle from "./Battle";
 import PlayerData from "./PlayerData";
-import ms from "ms";
+import ms from "pretty-ms";
 import Team from "./BattleTeam";
 
 export default abstract class BasePlayer {
@@ -15,7 +15,7 @@ export default abstract class BasePlayer {
         const { hp, name, code } = data;
         const { current, max } = hp;
 
-        return `**ID**: ${id}\n**Type**: ${type}\n**Name**: ${name}\n**HP**: ${current.toLocaleString()}/${max.toLocaleString()}\n**Code**: ${code ? ms(code.time) : "-"}`;
+        return `**ID**: ${id}\n**Type**: ${type}\n**Name**: ${name}\n**HP**: ${current.toLocaleString()}/${max.toLocaleString()}\n**Code**: ${code ? ms(code.time, { colonNotation: true }) : "-"}`;
     }
     abstract send(bot: Bot, opts: MessageOptions): Promise<void> | void;
     abstract end(bot: Bot, winner?: Team): Promise<void> | void;

@@ -32,11 +32,16 @@ npm start
 @battle create-team <Team Name>
 ```
 
-3. Make your enemies join the teams
+3a. Make your friends join the teams
 ```
 @battle join-team <Team ID>
 ```
-(This command should be used by **your enemies**, **not you**)
+(This command should be used by **your friends**, **not you**)
+
+3b. You don't have friends?
+```
+@battle add-computer <Team ID> <Level[1-3]>
+```
 
 4. Start the battle
 ```

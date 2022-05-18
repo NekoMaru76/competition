@@ -11,7 +11,7 @@ import Team from "./BattleTeam";
 import { createBase, splitStrToFields } from "../../Embed/Embed";
 import BasePlayer from "./BasePlayer";
 import ShortestRound from "./ShortestRound";
-import ms from "ms";
+import ms from "pretty-ms";
 
 const Rounds = [FastestRound, ShortestRound];
 
@@ -64,6 +64,9 @@ export default class Battle {
     }
     roundToEmbed(): MessageEmbed {
         const { round, bot } = this;
+
+        if (!round.started) throw `Battle isn't started yet`;
+
         const {
             description,
             time: {
@@ -72,7 +75,7 @@ export default class Battle {
         } = Problems[round.data.problem];
 
         return createBase(bot.embedColors.Base)
-            .setDescription(`**Description**: ${description}\n**Timer**: ${ms(max)}\n**Ends In**: ${ms(Date.now()-round.started.at)}`)
+            .setDescription(`**Description**: ${description}\n**Timer**: ${ms(max, { colonNotation: true })}\n**Ends In**: ${ms(max-(Date.now()-round.started.at), { colonNotation: true })}`)
             .setTitle(`${round.type} Round`);
     }
     createRound(): void {

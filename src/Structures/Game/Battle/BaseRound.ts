@@ -115,6 +115,10 @@ export default abstract class BaseRound {
             if (!Object.keys(players).length) throw `Team ${name} (${id}) is empty!`;
         }
 
+        this.started = {
+            at: Date.now()
+        };
+
         for (const [_, { isLose, 
             data: { players } 
         }] of entries) {
@@ -126,8 +130,6 @@ export default abstract class BaseRound {
         this.timeout = setTimeout(() => {
             this.battle.run([`Timeout!`]);
         }, Problems[data.problem].time.max);
-        this.started = {
-            at: Date.now()
-        };
+        this.started.at = Date.now(); //the reason is because the round is actually started after setTimeout fired but `<Battle>#roundToProblem` need to be fired before this.
     }
 };
