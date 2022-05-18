@@ -60,9 +60,9 @@ or
 ```
 (You aren't supposed to put `<Function Code>`. The code submitted should be a function)
 
-Example:
-Problem Description: Given an argument, the first argument is a number. Function will return the result of the sum of the argument and `1`.
-Command: 
+Example:<br />
+Problem Description: Given an argument, the first argument is a number. Function will return the result of the sum of the argument and `1`.<br />
+Command: <br />
 ```
 @battle submit ```js
 f(n => n+1)
