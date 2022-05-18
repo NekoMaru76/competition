@@ -46,7 +46,8 @@ const callbacks: Callback[] = [
                                     for (const { type, name } of callback.args) {
                                         const usage = type.toUsage();
 
-                                        st += ` \`${name}\``;
+
+                                        st += ` \`[${name}]\``;
                                         en += `\n\`${name}\`: \`${usage || `<${type.name}>`}\``;
                                         
                                     }

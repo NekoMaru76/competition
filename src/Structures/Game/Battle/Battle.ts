@@ -72,7 +72,7 @@ export default class Battle {
         } = Problems[round.data.problem];
 
         return createBase(bot.embedColors.Base)
-            .setDescription(`**Description**: ${description}\n**Timer**: ${ms(max)}`)
+            .setDescription(`**Description**: ${description}\n**Timer**: ${ms(max)}\n**Ends In**: ${ms(Date.now()-round.started.at)}`)
             .setTitle(`${round.type} Round`);
     }
     createRound(): void {
