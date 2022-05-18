@@ -27,4 +27,5 @@ export default class Decimal extends Type {
             val: num
         };
     }
+    toUsage() {}
 };

@@ -6,7 +6,7 @@ module Callback {
 }
 
 export default class Callback extends Type {
-    constructor(name: string, public func: (...args: any[]) => any | Function) {
+    constructor(name: string, public func: ((val: string) => Callback.Type<any>)) {
         super(name);
     }
     test(val: string): Test<Callback.Type<ReturnType<typeof this["func"]>>> {
@@ -27,5 +27,8 @@ export default class Callback extends Type {
             ...o,
             val: v
         };
+    }
+    toUsage(): string {
+        return "<Unknown>";
     }
 };

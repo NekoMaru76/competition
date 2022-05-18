@@ -11,6 +11,6 @@ export interface FalsyTest {
     rawVal: string;
 }
 
-type Test<V> = TruthyTest<V> | FalsyTest
+export type Test<V> = TruthyTest<V> | FalsyTest
 
 export default Test

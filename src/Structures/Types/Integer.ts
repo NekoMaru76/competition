@@ -27,4 +27,5 @@ export default class Integer extends Type {
             val: num
         };
     }
+    toUsage() {}
 };

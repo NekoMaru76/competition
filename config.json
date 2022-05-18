@@ -1,7 +1,14 @@
 {
     "prefix": "@",
-    "colorList": {
-        "Base": "#fff",
-        "Error": "#880808"
+    "colors": {
+        "logger": {
+            "Error": "red",
+            "Info": "cyan",
+            "Warn": "yellow"
+        },
+        "embed": {
+            "Base": "#31faff",
+            "Error": "RED"
+        }
     }
 }

@@ -1,6 +1,5 @@
 import { CallbackFunctionOptions, Callback } from "../../Structures/Command/Callback";
 import Text from "../../Structures/Types/Text";
-import Integer from "../../Structures/Types/Integer";
 import { createBase, createError } from "../../Structures/Embed/Embed";
 import Command from "../../Structures/Command/Command";
 import Argument from "../../Structures/Command/Argument";
@@ -15,11 +14,12 @@ const callbacks: Callback[] = [
         }: CallbackFunctionOptions): Promise<void> {
             const cmdName = (testArgs[0] as TruthyTest<string>).val
             const cmd = bot.commandsManager.commands[cmdName];
+            const { prefix, embedColors } = bot;
 
             if (!cmd) {
                 await msg.channel.send({
                     embeds: [
-                        createError(bot)
+                        createError(embedColors.Error)
                             .setDescription(`${cmdName} is not a valid command name`)
                     ]
                 });
@@ -32,17 +32,35 @@ const callbacks: Callback[] = [
                 callbacks,
                 category
             } = cmd;
-            const embed = createBase(bot);
-
-            embed.setDescription(`**Name**: ${cmdName}\n**Description**: ${description}\n**Category**: ${category}\n**Usage**:\n${callbacks.map((callback: Callback) => callback.args.map((arg: Argument) => `- \`${arg.type.toUsage()}\``).join(", ")).join("\n")}`);
+            
             await msg.channel.send({
                 embeds: [
-                    embed
+                    createBase(embedColors.Base)
+                        .setTitle(`Showing result for:  ${cmdName}`)
+                        .setDescription(`**Name**: ${cmdName}\n\n**Description**: ${description}\n\n**Category**: ${category}\n\n**Usage**:\n${
+                            callbacks.map(
+                                (callback: Callback) => {
+                                    let st = `- \`${prefix}${cmdName}\``;
+                                    let en = ``;
+
+                                    for (const { type, name } of callback.args) {
+                                        const usage = type.toUsage();
+
+                                        st += ` \`${name}\``;
+                                        en += `\n\`${name}\`: \`${usage || `<${type.name}>`}\``;
+                                        
+                                    }
+
+                                    return st + en + "\n";
+                                }
+                            )
+                                .join("\n")
+                        }`)
                 ]
             });
         },
         args: [
-            new Argument(new Text, "cmd name")
+            new Argument(new Text, `Command Name`)
         ]
     },
     {
@@ -50,8 +68,8 @@ const callbacks: Callback[] = [
             msg, 
             bot
         }: CallbackFunctionOptions): Promise<void> {
-            const { commandsManager } = bot;
-            const embed = createBase(bot);
+            const { commandsManager, embedColors } = bot;
+            const embed = createBase(embedColors.Base);
             const list: {
                 [key: string]: Command[];
             } = {};

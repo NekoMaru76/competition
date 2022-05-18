@@ -2,7 +2,7 @@ import Test from "./Test";
 import Type from "./Type";
 
 export default class Text extends Type {
-    constructor(public readonly only?: string) {
+    constructor(public readonly only?: string[]) {
         super("Text");
     }
     test(val: string): Test<Text.Type> {
@@ -11,10 +11,10 @@ export default class Text extends Type {
             expected: name,
             rawVal: val
         };
-
+        
         if (
-            only && only === val ||
-            val.length
+            only?.includes(val) ||
+            !only && val.length
         ) return {
             is: true,
             ...o,
@@ -26,10 +26,10 @@ export default class Text extends Type {
             ...o
         };
     }
-    toUsage(): string {
-        const { only, name } = this;
+    toUsage() {
+        const { only } = this;
 
-        return only ? only : `*<${name}>*`;
+        if (only) return only.join(" | ");
     }
 };
 

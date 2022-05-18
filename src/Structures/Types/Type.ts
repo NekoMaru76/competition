@@ -4,8 +4,8 @@ module Type {
     export type Type = any;
 }
 
-export default class Type {
-    constructor(public readonly name: string, public def?: any) {}
+export default abstract class Type {
+    constructor(public readonly name: string) {}
     test(val: string): Test<Type.Type> {
         return {
             is: true,
@@ -14,9 +14,5 @@ export default class Type {
             rawVal: val
         };
     }
-    toUsage(): string {
-        const { def, name } = this;
-
-        return `*<${name}${def ? `(Default: ${def})` : ""}>*`;
-    }
+    abstract toUsage(): string | void;
 };

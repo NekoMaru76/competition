@@ -6,17 +6,17 @@ import Decimal from "./Decimal";
 type Base = Type;
 
 declare module Or {
-    export type Type<Types extends Base[]> = any[];
+    export type Type = any;
 }
 
 export default class Or extends Type {
-    constructor(public readonly types: Type[]) {
+    constructor(public readonly types: Or.Type[]) {
         super(Or.getName(types));
     }
     static getName(types: Type[]): string {
         return types.map((type: Type) => type.name).join(" | ");
     }
-    test(val: string): Test<Or.Type<typeof this["types"]>> {
+    test(val: string): Test<Or.Type[]> {
         const { types, name } = this;
         const o = {
             expected: name,
@@ -39,9 +39,7 @@ export default class Or extends Type {
             ...o
         };
     }
-    toUsage(): string {
-        return this.types.map((type: Type) => type.toUsage()).join(" | ");
+    toUsage() {
+        return this.types.map((type: Type) => type.toUsage()).filter((type?: string) => type).join(" | ");
     }
 };
-
-new Or([new Text, new Decimal]).test("dick")

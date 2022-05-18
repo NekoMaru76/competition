@@ -1,3 +1,4 @@
-import type { ColorResolvable } from "discord.js";
+import type { HexColorString } from "discord.js";
 
-export type ColorList = Record<string, ColorResolvable>;
+export type Colors = Record<string, HexColorString>;
+export type Color = HexColorString;
