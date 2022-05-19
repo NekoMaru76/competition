@@ -50,8 +50,8 @@ export function create(opts?: LoggerOptions): Logger {
             // - Write all logs with importance level of `error` or less to `error.log`
             // - Write all logs with importance level of `info` or less to `combined.log`
             //
-            new transports.File({ filename: `${__dirname}/../../logs/error.log`, level: 'error' }),
-            new transports.File({ filename: `${__dirname}/../../logs/combined.log` })
+            new transports.File({ filename: `./logs/error.log`, level: 'error' }),
+            new transports.File({ filename: `./logs/combined.log` })
         ]
     }, opts));
 };
