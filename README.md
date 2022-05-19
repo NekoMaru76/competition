@@ -6,6 +6,9 @@
 npm i . --force
 ```
 
+# Intents
+It needs messages event.
+
 # Setup
 Create a file with path `/vars/.env` with content
 ```
