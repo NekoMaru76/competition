@@ -25,7 +25,6 @@ export default class VMServer extends Connection {
                     }
                 }, msg.data.opts || {}));
                 
-                console.log(msg.data.code);
                 vm.run(msg.data.code);
 
                 if (!exported) this.error(msg.id, `Code doesn't exports a function`);

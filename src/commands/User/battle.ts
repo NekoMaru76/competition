@@ -2,6 +2,7 @@ import { User } from "discord.js";
 import Bot from "../../Structures/Bot/Bot";
 import Argument from "../../Structures/Command/Argument";
 import { CallbackFunctionOptions, Callback } from "../../Structures/Command/Callback";
+import { createBase } from "../../Structures/Embed/Embed";
 import Battle from "../../Structures/Game/Battle/Battle";
 import Team from "../../Structures/Game/Battle/BattleTeam";
 import { ComputerPlayer } from "../../Structures/Game/Battle/ComputerPlayer";
@@ -342,8 +343,7 @@ const callbacks: Callback[] = [
     {
         async func({
             msg,
-            bot,
-            testArgs
+            bot
         }: CallbackFunctionOptions): Promise<void> {
             inBattleOnly(bot, msg.author);
 
@@ -374,6 +374,41 @@ const callbacks: Callback[] = [
         },
         args: [
             new Argument(new Text(["leave-battle"]), "Type")
+        ]
+    },
+    {
+        async func({
+            msg,
+            bot,
+            testArgs
+        }: CallbackFunctionOptions): Promise<void> {
+            inBattleOnly(bot, msg.author);
+
+            const battle = bot.playersBattles.get(msg.author.id);
+            
+            battleIsNotStarted(battle);
+            
+            const player = battle.data.players[testArgs[1].val];
+
+            if (!player) {
+                await msg.channel.send(`Cannot found a player with ID ${testArgs[1].val}`);
+
+                return;
+            }
+
+            await msg.channel.send({
+                embeds: [
+                    createBase(bot.embedColors.Base)
+                        .setAuthor({
+                            name: "Player Info"
+                        })
+                        .setDescription(player.toString())
+                ]
+            });
+        },
+        args: [
+            new Argument(new Text(["info-player"]), "Type"),
+            new Argument(new Text, "Player ID")
         ]
     }
 ];
