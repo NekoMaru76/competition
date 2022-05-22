@@ -145,6 +145,8 @@ export default class Battle {
                 totalHP += hp.current = to;
                 
                 log.push(`Player ${name}'s HP has been reduced to ${to}/${hp.max}`);
+
+                if (!hp.current) log.push(`Player ${name} has been eliminated`);
             }
     
             if (!totalHP) {
@@ -167,7 +169,7 @@ export default class Battle {
         const runIfEnd = async () => {
             for (const [id1, { 
                 data: { players } 
-            }] of Object.entries(this.data.teams)) {
+            }] of Object.entries(data.teams)) {
                 for (const [id2, player] of Object.entries(players)) {
                     if (player.type === "Human") {
                         const upd: any = {
@@ -183,7 +185,7 @@ export default class Battle {
                         }, upd);
                     }
 
-                    await player.end(this.bot, teams[winner]);
+                    await player.end(bot, teams[winner]);
                     bot.playersBattles.delete(id2);
                 }
 
@@ -217,7 +219,7 @@ export default class Battle {
                         embeds: [
                             createBase(bot.embedColors.Base)
                                 .setTitle(`Battle Log`)
-                                .addFields(splitStrToFields(log.join("\n"), { name: (i) => `Log ${i+1}` }))
+                                .addFields(splitStrToFields(log.join("\n"), { name: (i) => `Page ${i+1}` }))
                         ]
                     });
                 }

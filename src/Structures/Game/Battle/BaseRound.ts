@@ -83,7 +83,7 @@ export default abstract class BaseRound {
         const player = players[id];
 
         if (!player) throw `Invalid ID`;
-        if (!player.data.hp.current) throw `The player is already lost`;
+        if (!player.data.hp.current) throw `The player is already eliminated`;
 
         player.data.code = {
             str: code,

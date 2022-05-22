@@ -24,7 +24,7 @@ export default class Team {
         }
     }
     toStatus(): string {
-        return this.isLose ? "Lost" : "Alive";
+        return this.isLose ? "Eliminated" : "Alive";
     }
     toEmbed(color: Color): MessageEmbed {
         const {

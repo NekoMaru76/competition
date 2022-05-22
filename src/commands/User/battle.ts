@@ -379,11 +379,9 @@ const callbacks: Callback[] = [
 ];
 const description = "";
 const only = "dm";
-const projection = [];
 
 export {
     callbacks,
     description,
-    only,
-    projection
+    only
 };

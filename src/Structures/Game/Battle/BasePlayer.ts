@@ -15,7 +15,10 @@ export default abstract class BasePlayer {
         const { hp, name, code } = data;
         const { current, max } = hp;
 
-        return `**ID**: ${id}\n**Type**: ${type}\n**Name**: ${name}\n**HP**: ${current.toLocaleString()}/${max.toLocaleString()}\n**Code**: ${code ? ms(code.time, { colonNotation: true }) : "-"}`;
+        return `**ID**: ${id}\n**Type**: ${type}\n**Name**: ${name}\n**Status**: ${this.getStatus()}\n**HP**: ${current.toLocaleString()}/${max.toLocaleString()}\n**Code**: ${code ? ms(code.time, { colonNotation: true }) : "-"}`;
+    }
+    getStatus(): string {
+        return this.data.hp.current ? "Alive" : "Eliminated";
     }
     abstract send(bot: Bot, opts: MessageOptions): Promise<void> | void;
     abstract end(bot: Bot, winner?: Team): Promise<void> | void;
