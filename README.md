@@ -40,25 +40,28 @@ npm start
 ```
 @battle join-team <Team ID>
 ```
-(This command should be used by **your friends**, **not you**)
+(Above command should be used by **your friends**, **not you**)
 
 3b. You don't have friends?
 ```
 @battle add-computer <Team ID> <Level[1-3]>
 ```
+<br />
 
-4. Start the battle
+4. Start the battle<br />
 ```
 @battle start-battle
 ```
+<br />
 
-5. Submits your code
+5. Submits your code<br />
 ```
 @battle submit ```js
-f(<Function Code>)
-​```
+f(<Function Code>)```
 ```
+
 or
+
 ```
 @battle submit f(<Function Code>)
 ```
