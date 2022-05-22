@@ -82,6 +82,12 @@ export default abstract class BaseRound {
 
         const player = players[id];
 
+        if (code.startsWith("```")) {
+            if (code.startsWith("```js")) code = code.replace("```js", '');
+            if (code.startsWith("```")) code = code.replace("```", '');
+            if (code.endsWith("```")) code = code.slice(code.length-3);
+        }
+
         if (!player) throw `Invalid ID`;
         if (!player.data.hp.current) throw `The player is already eliminated`;
 

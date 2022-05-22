@@ -90,22 +90,25 @@ const Problems: Record<string, Problem> = {
     "E": {
         description: "Given 2 arguments, the first argument is a list of numbers and the second argument is a number. Function will return true if there's any two sums (from the array) to the second argument, otherwise it will return false. Example: ([10, 5, 3, 7], 17) => true, because 10+7 is 17.",
         test(func: (arr: number[], target: number) => boolean): boolean {
-            const res = Random.pick([true, false]);
             const arr: number[] = [];
-            const target = Random.between(1, 100);
+            const t = Random.between(1, 100);
             const len = Random.between(3, 10);
+            const prev = new Set;
 
-            for (let i = 0; i < len; i++) arr.push(Random.between(1, 100));
+            let res = false;
 
-            if (res) {
-                const a = Random.between(0, target);
-                const b = target-a;
+            for (let i = 0; i < len; i++) {
+                const n = Random.between(1, 100);
 
-                arr.splice(Random.between(0, arr.length-1), 0, a);
-                arr.splice(Random.between(0, arr.length-1), 0, b);
+                arr.push(n);
+
+                if (!res) {
+                    if (prev.has(t-n)) res = true;
+                    else prev.add(n);
+                }
             }
 
-            return func(arr, target) === res;
+            return func(arr, t) === res;
         },
         solve: "(arr, target) => {\n\tconst previous = new Set;\n\tfor (const v of arr) {\n\t\tif (previous.has(target - v)) return true;\n\n\tprevious.add(v);\n\t}\n\treturn false;\n}",
         time: {
@@ -134,6 +137,66 @@ const Problems: Record<string, Problem> = {
             return 1 <= n && n <= 10;
         },
         solve: "() => Math.floor(Math.random() * 10) + 1",
+        time: {
+            ave: 1000*30,
+            max: 1000*60*1.5
+        }
+    },
+    "H": {
+        description: "Given an argument, the argument is a number. Function will return how many '1' bits it has.",
+        test(func: (n: number) => number): boolean {
+            const n = Random.between(1, 100);
+
+            return func(n) === n.toString(2).replaceAll("0", '').length;
+        },
+        solve: "(n) => n.toString(2).replaceAll('0', '').length",
+        time: {
+            ave: 1000*30,
+            max: 1000*60*1.5
+        }
+    },
+    "I": {
+        description: "Given two arguments of binary strings. Function will return the sum of 2 arguments as a binary string.",
+        test(func: (a: string, b: string) => string): boolean {
+            const a = Random.between(1, 100);
+            const b = Random.between(1, 100);
+
+            return func(a.toString(2), b.toString(2)) === (a+b).toString(2);
+        },
+        solve: "(a, b) => (parseInt(a, 2)+parseInt(b, 2)).toString(2)",
+        time: {
+            ave: 1000*30,
+            max: 1000*60*1.5
+        }
+    },
+    "J": {
+        description: "Given an argument, the first argument is a num rows of a Pascal's triangle. Function will return the first num rows of Pascal's triangle (`number[][]`).",
+        test(func: (depth: number) => number[][]): boolean {
+            const depth = Random.between(1, 5);
+            const tri: number[][] = [];
+            const res = func(depth);
+
+            for (let i = 0; i < depth; i++) {
+                const list: number[] = [1];
+                const last = tri[i-1];
+                const curr = res[i];
+
+                if (curr[0] !== 1 || curr[curr.length-1] !== 1) return false;
+
+                for (let l = 1; l < i; l++) {
+                    const n = last[l-1]+last[l];
+
+                    if (n !== curr[l]) return false;
+
+                    list.push(n);
+                }
+
+                tri.push([...list, 1]);
+            }
+
+            return true;
+        },
+        solve: "(depth) => {\n\tconst tri = [];\n\n\tfor (let i = 0; i < depth; i++) {\n\t\tconst list = [1];\n\t\tconst last = tri[i-1];\n\n\t\tfor (let l = 1; l < i; l++) {\n\t\t\tlist.push(last[l-1]+last[l]);\n\t\t}\n\n\ttri.push([...list, 1]);\n\t}\n\n\treturn tri;\n}",
         time: {
             ave: 1000*30,
             max: 1000*60*1.5

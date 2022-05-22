@@ -1,6 +1,6 @@
-logs/
+logs/*
 node_modules/
-vars/
+vars/*
 tests/
 
 package-lock.json

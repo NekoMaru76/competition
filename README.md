@@ -1,5 +1,6 @@
 # Gameplay
-[Clash of Code](https://www.codingame.com/multiplayer/clashofcode), but discord bot and only JS. Got it?
+[Clash of Code](https://www.codingame.com/multiplayer/clashofcode), but discord bot, teams, and only JS. Got it?<br />
+Currently there are only 10 problems.
 
 # Install
 ```bash
@@ -61,7 +62,6 @@ or
 ```
 @battle submit f(<Function Code>)
 ```
-(You aren't supposed to put `<Function Code>`. The code submitted should be a function)
 
 Example:<br />
 Problem Description: Given an argument, the first argument is a number. Function will return the result of the sum of the argument and `1`.<br />
